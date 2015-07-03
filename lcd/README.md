@@ -2,6 +2,8 @@
 
 ![LCD running !](picture.jpg)
 
+# 라즈베리파이GPIO lcd pin 연결
+
 |pin num|lcd function|GPIO num|
 |---|---|---|
 |1|GND| GND|
