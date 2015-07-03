@@ -1,24 +1,24 @@
 RPIlogger
 
-java¼³Á¤
-vi /etc/profile¿¡ µé¾î°¡¼­
+javaì„¤ì •
+vi /etc/profileì— ë“¤ì–´ê°€ì„œ
 JAVA_HOME=/usr/
 export JAVA_HOME
-export PATH=$PATH:$JAVA_HOME/bin¸¦ ³¡¿¡ Ãß°¡ÇØÁØ´Ù.
+export PATH=$PATH:$JAVA_HOME/binë¥¼ ëì— ì¶”ê°€í•´ì¤€ë‹¤.
 
-hbase¼³Ä¡
+hbaseì„¤ì¹˜
 cd /usr/local
 mkdir data
 wget http://www.apache.org/dist/hbase/stable/hbase-1.0.1.1-bin.tar.gz
 tar xvfz hbase-1.0.1.1-bin.tar.gz
 cd hbase-1.0.1.1
 
-hbase path ¼³Á¤
+hbase path ì„¤ì •
 vi conf/hbase-env.sh
 JAVA_HOME=/usr/
 
 vi conf/hbase-site.xml
- configuration¿¡ ¾Æ·¡ÀÇ ³»¿ëÀ» ³Ö¾îÁØ´Ù.
+ configurationì— ì•„ë˜ì˜ ë‚´ìš©ì„ ë„£ì–´ì¤€ë‹¤.
 <configuration>
        <property>
          <name>hbase.rootdir</name>
@@ -30,9 +30,9 @@ vi conf/hbase-site.xml
         </property>
      </configuration>
 
-sudo ./bin/start-hbase.sh -> hbase ½ÇÇà
+sudo ./bin/start-hbase.sh -> hbase ì‹¤í–‰
 
-gnuplot ¼³Ä¡
+gnuplot ì„¤ì¹˜
 cd /usr/local
 apt-get install gcc
 apt-get install libgd2-xpm-dev
@@ -47,7 +47,7 @@ make install
 apt-get install gnuplot
 apt-get install dh-autoreconf
 
-openTSDB ¼³Ä¡
+openTSDB ì„¤ì¹˜
 cd /usr/local
 apt-get install autoconf
 git clone git://github.com/OpenTSDB/opentsdb.git
@@ -56,17 +56,17 @@ git clone git://github.com/OpenTSDB/opentsdb.git
 ./configure
 make install
 
--java heap space ¿¡·¯½Ã
+-java heap space ì—ëŸ¬ì‹œ
 vi ~/.bashrc
-export JAVA_OPTS="-Xms512m -Xmx2048m -XX:MaxPermSize=512m¡° Ãß°¡
+export JAVA_OPTS="-Xms512m -Xmx2048m -XX:MaxPermSize=512mâ€œ ì¶”ê°€
 source ~/.bashrc
 
-java path ¼³Á¤
-export ´©¸£¸é path ¼³Á¤ È®ÀÎ°¡´ÉÇÏ´Ù
-sudo nano ~/.bashrc¿¡¼­ ÆĞ½º ¼³Á¤
-source ~/.bashrc ¼³Á¤ Àû¿ë 
+java path ì„¤ì •
+export ëˆ„ë¥´ë©´ path ì„¤ì • í™•ì¸ê°€ëŠ¥í•˜ë‹¤
+sudo nano ~/.bashrcì—ì„œ íŒ¨ìŠ¤ ì„¤ì •
+source ~/.bashrc ì„¤ì • ì ìš© 
 
-opentsdb½ÇÇà
+opentsdbì‹¤í–‰
 
 cd /usr/local/hbase-1.0.1.1/bin/
 sudo ./stop-hbase.sh
@@ -83,4 +83,4 @@ tsdb -r tsdb
 
 ./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir=/usr/local/data --auto-metric
 
-ctrl+a+d¸¦ ÅëÇØ Á¾·á
+ctrl+a+dë¥¼ í†µí•´ ì¢…ë£Œ!
