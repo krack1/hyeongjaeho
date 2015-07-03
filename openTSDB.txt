@@ -1,0 +1,86 @@
+RPIlogger
+
+java설정
+vi /etc/profile에 들어가서
+JAVA_HOME=/usr/
+export JAVA_HOME
+export PATH=$PATH:$JAVA_HOME/bin를 끝에 추가해준다.
+
+hbase설치
+cd /usr/local
+mkdir data
+wget http://www.apache.org/dist/hbase/stable/hbase-1.0.1.1-bin.tar.gz
+tar xvfz hbase-1.0.1.1-bin.tar.gz
+cd hbase-1.0.1.1
+
+hbase path 설정
+vi conf/hbase-env.sh
+JAVA_HOME=/usr/
+
+vi conf/hbase-site.xml
+ configuration에 아래의 내용을 넣어준다.
+<configuration>
+       <property>
+         <name>hbase.rootdir</name>
+         <value>file:///DIRECTORY/hbase</value>
+       </property>
+       <property>
+         <name>hbase.zookeeper.property.dataDir</name>
+         <value>/DIRECTORY/zookeeper</value>
+        </property>
+     </configuration>
+
+sudo ./bin/start-hbase.sh -> hbase 실행
+
+gnuplot 설치
+cd /usr/local
+apt-get install gcc
+apt-get install libgd2-xpm-dev
+
+wget http://sourceforge.net/projects/gnuplot/files/gnuplot/4.6.3/gnuplot-4.6.3.tar.gz
+tar zxvf gnuplot-4.6.3.tar.gz
+cd gnuplot-4.6.3
+
+./configure
+make install
+
+apt-get install gnuplot
+apt-get install dh-autoreconf
+
+openTSDB 설치
+cd /usr/local
+apt-get install autoconf
+git clone git://github.com/OpenTSDB/opentsdb.git
+
+./build.sh
+./configure
+make install
+
+-java heap space 에러시
+vi ~/.bashrc
+export JAVA_OPTS="-Xms512m -Xmx2048m -XX:MaxPermSize=512m“ 추가
+source ~/.bashrc
+
+java path 설정
+export 누르면 path 설정 확인가능하다
+sudo nano ~/.bashrc에서 패스 설정
+source ~/.bashrc 설정 적용 
+
+opentsdb실행
+
+cd /usr/local/hbase-1.0.1.1/bin/
+sudo ./stop-hbase.sh
+sudo ./start-hbase.sh
+
+cd /usr/local/opentsdb
+env COMPRESSION=NONE HBASE_HOME=/usr/local/hbase-1.0.1.1 ./src/create_table.sh
+tsdtmp=${TMPDIR-'/usr/local/data'}/tsd
+mkdir -p "$tsdtmp"
+
+screen -dmS tsdb
+screen -list
+tsdb -r tsdb
+
+./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir=/usr/local/data --auto-metric
+
+ctrl+a+d를 통해 종료
