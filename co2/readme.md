@@ -1,7 +1,7 @@
 # CO2 센서
 ![co2 learning !](co2 측정.png)
 
-|CO2|CO2 function|
+|CO2|CO2 function||
 |----|----|----|
 |1|3.3V||
 |2|5V|V|
