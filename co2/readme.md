@@ -1,5 +1,10 @@
 # CO2 센서
+
+python  실행 결과
 ![co2 learning !](co2 측정.png)
+
+openTSDB 확인결과
+![tsd !](tsdb_co2_result.jpg)
 
 |CO2|CO2 function||
 |----|----|----|
