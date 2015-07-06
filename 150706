@@ -1,0 +1,22 @@
+Enter file contents here
+#openTSDB Background 실행
+
+cd /etc/rc.local 맨마지막 줄에 내용 추가
+
+cd /usr/local/hbase-1.0.1.1/
+cd bin/
+sudo ./start-hbase.sh 
+
+cd /usr/local/opentsdb
+
+sudo env COMPRESSION=NONE HBASE_HOME=/usr/local/hbase-1.0.1.1 ./src/create_table.sh
+
+sudo tsdtmp=${TMPDIR-'/usr/local/data'}/tsd
+
+#sudo screen -dmS tsdb
+#sudo screen -list
+#sudo screen -r tsdb
+
+nohup sudo ./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir=/usr/local/data --auto-metric
+
+reboot 후 ps -ef 명령어를 통해 실행 되었는지 확인.
