@@ -4,7 +4,7 @@ import httplib
 import time
 import json
 
-conn = httplib.HTTPConnection("192.168.0.5")
+conn = httplib.HTTPConnection("ra")
 
 #Hue 켜기
 def on(light):
@@ -12,7 +12,7 @@ def on(light):
 	response = conn.getresponse()
 	data = response.read()
 
-    if data[3:10] is "success":
+	if data[3:10] is "success":
 		return True
 	else:
 		return False
@@ -23,11 +23,11 @@ def off(light):
 	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", '{"on":false}')
 	response = conn.getresponse()
 	data = response.read()
-    
-    if data[3:10] is "success":
-        print 'okay'
+
+	if data[3:10] is "success":
+		return True
 	else:
-        print 'no'
+		return False
 
 #Hue의 saturation변화 0~255 0 흰색
 def putSat(light, sat):
@@ -97,6 +97,6 @@ def getState(light):
 	return ret	
 
 
-on(1)
+off(1)
 
 	
