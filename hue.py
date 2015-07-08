@@ -13,8 +13,10 @@ def on(light):
 	data = response.read()
 
 	if data[3:10] is "success":
+		print 'y'
 		return True
 	else:
+		print 'n'
 		return False
 
 
