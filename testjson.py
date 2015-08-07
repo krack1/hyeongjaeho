@@ -16,7 +16,7 @@ def on(light):
         return False
 
 
-def off(ligth):
+def off(light):
     conn.request("PUT","/api/newdeveloper/"+str(light)+"/state", '{"on":false}')
     response = conn.getresponse()
     data = response.read()

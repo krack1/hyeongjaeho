@@ -12,10 +12,12 @@ def on(light):
 	response = conn.getresponse()
 	data = response.read()
 
-    if data[3:10] is "success":
-		return True
-	else:
-		return False
+	if data[3:10] is "success":
+		print 'y'
+        return True
+    else:
+        print 'n'
+        return False
 
 
 #Hue 끄기
