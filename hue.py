@@ -13,15 +13,12 @@ def on(light):
 	data = response.read()
 
 	if data[3:10] is "success":
-<<<<<<< HEAD
 		print 'y'
         return True
     else:
         print 'n'
         return False
-=======
-=======
->>>>>>> 997b5bab00a6166bf184c91f9f65a9597c3b1e8e
+
 		return True
 	else:
 		return False
@@ -102,11 +99,7 @@ def getState(light):
 	ret.append(data['state']['sat'])
 	
 	return ret	
-<<<<<<< HEAD
 
 
 getState(1)
 
-	
-=======
->>>>>>> 997b5bab00a6166bf184c91f9f65a9597c3b1e8e
