@@ -15,7 +15,7 @@ def on(light):
 	if data[3:10] is "success":
 		print 'y'
         return True
-    else:
+	else:
         print 'n'
         return False
 
