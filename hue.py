@@ -4,7 +4,7 @@ import httplib
 import time
 import json
 
-conn = httplib.HTTPConnection("10.255.255.65")
+conn = httplib.HTTPConnection("rasp2.iptime.org:8081")
 
 #Hue 켜기
 def on(light):
@@ -13,12 +13,6 @@ def on(light):
 	data = response.read()
 
 	if data[3:10] is "success":
-		print 'y'
-        return True
-    else:
-        print 'n'
-        return False
-
 		return True
 	else:
 		return False
@@ -99,7 +93,3 @@ def getState(light):
 	ret.append(data['state']['sat'])
 	
 	return ret	
-
-
-getState(1)
-
