@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 import httplib 
 import time 
-import json# -*- coding: utf-8 -*-
-import httplib 
-import time 
-import json 
-conn = httplib.HTTPConnection("10.255.255.65")
-#Hue 켜기
+import json
+
+conn = httplib.HTTPConnection("192.168.0.5")
+
+
 def on(light):
 	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", 
 '{"on":true}')
@@ -74,10 +73,19 @@ def getState(light):
 	ret =[]
 	ret.append(data['name'])
 	ret.append(data['state']['on'])
-	ret.append(data['state']['bri'])
 	ret.append(data['state']['hue'])
 	ret.append(data['state']['sat'])
-	
-	return ret 
-	
-print getState(4)
+	ret.append(data['state']['bri'])	
+	return ret
+
+def getled():
+	conn.request("GET","/api/newdeveloper/lights/")
+	response = conn.getresponse()
+	raw_data = json.loads(response.read())
+	data = raw_data
+	ret = []
+	ret.append(data) 
+
+	return data
+
+print getled()
