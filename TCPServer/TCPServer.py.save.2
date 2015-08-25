@@ -1,0 +1,62 @@
+import socket
+import time
+import json
+import httplib
+import time
+
+conn = httplib.HTTPConnection("192.168.0.5")
+
+def on(light):
+	conn.request("PUT","api/newdeveloper/lights/" +str(light)+"/state",'{"on":true}')
+	response = conn.getresponse()
+	data = response.read()
+	if data[3:10] is "success":
+		return True
+	else:
+		return False
+
+def off(light):
+	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", '{"on":false}')#create a coscket object serversocket = socket.socket(socket.AF_INET, 
+socket.SOCK_STREAM)
+	response = conn.getresponse()
+	data = response.read()#get local machine name host = "192.168.0.6"
+	if data[3:10] is "success": port = 9999
+		return True buf = 1024
+	else:
+		return False#bind to the port serversocket.bind((host, port))
+#Hue의 saturation변화 0~255 0 흰색
+def putSat(light, sat):# queue up to 5 requests serversocket.listen(5)
+	saturation = {} while True:
+	saturation['sat'] = sat	#establish a connection
+	saturation = json.dumps(saturation)	clientsocket,addr = serversocket.accept()
+	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", data = clientsocket.recv(buf) saturation)	print (data)
+	response = conn.getresponse()
+	data = response.read()
+	if data[3:10] is "success":	decoded = json.loads(data)
+		return True	print decoded['hue']
+	else:	print decoded['on']
+		return False	print decoded['sat']
+#Hue의 밝기 변화 0~255	print decoded['bri']
+def putBri(light, bri):	clientsocket.close()
+	bright = {}
+	bright['bri'] = bri
+	bright = json.dumps(bright)
+	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", bright)
+	response = conn.getresponse()
+	data = response.read()
+	if data[3:10] is "success":
+		return True
+	else:
+		return False
+#Hue의 hue값 변화 0~65535
+def putHue(light, hue):
+	color = {}
+	color['hue'] = hue
+	color = json.dumps(color)
+	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", color)
+	response = conn.getresponse()
+	data = response.read()
+	if data[3:10] is "success":
+		return True
+	else:
+		return False

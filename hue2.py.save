@@ -1,9 +1,10 @@
+
 # -*- coding: utf-8 -*-
 import httplib 
 import time 
-import json
+import json# -*- coding: utf-8 -*-
 
-conn = httplib.HTTPConnection("192.168.0.5")
+conn = httplib.HTTPConnection("10.255.254.220:9999")
 
 
 def on(light):
@@ -27,7 +28,6 @@ def off(light):
 		return False
 #Hue의 saturation변화 0~255 0 흰색
 def putSat(light, sat):
-	saturation = {}
 	saturation['sat'] = sat
 	saturation = json.dumps(saturation)
 	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", 
@@ -73,32 +73,10 @@ def getState(light):
 	ret =[]
 	ret.append(data['name'])
 	ret.append(data['state']['on'])
+	ret.append(data['state']['bri'])
 	ret.append(data['state']['hue'])
 	ret.append(data['state']['sat'])
-	ret.append(data['state']['bri'])	
-	return ret
-
-def getled():
-	conn.request("GET","/api/newdeveloper/lights/")
-	response = conn.getresponse()
-	raw_data = json.loads(response.read())
-	data = raw_data
-	ret = []
-	ret.append(data) 
-
-	return data
-
-def putled(light, hue, sat, bri):
-	state = {}
-	state['hue']=hue
-	state['sat']=sat
-	state['bri']=bri
-	state = json.dumps(state)
-
-	print state
-
-	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", state)
-
-
-on(4)
-putled(4, 30000, 254, 254)
+	
+	return ret 
+	
+print getState(4)

@@ -1,0 +1,63 @@
+import socket
+import time
+import json
+import httplib
+import time
+import sys
+
+conn = httplib.HTTPConnection("192.168.0.5")
+
+#create a coscket object
+serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) def on(light):
+	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", #get local machine name host = "192.168.0.6" '{"on":true}') port = 9999
+	response = conn.getresponse() buf = 1024
+	data = response.read()
+	if data[3:10] is "success":#bind to the port serversocket.bind((host, port))
+		return True
+	else:# queue up to 5 requests serversocket.listen(5)
+		return False while True:
+#Hue 끄기	#establish a connection
+def off(light):	clientsocket,addr = serversocket.accept()
+	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", data = clientsocket.recv(buf) '{"on":false}')	print (data)
+	response = conn.getresponse()
+	data = response.read()
+	if data[3:10] is "success":	decoded = json.loads(data)
+		return True	print decoded['hue']
+	else:	print decoded['on']
+		return False	print decoded['sat']
+#Hue의 saturation변화 0~255 0 흰색	print decoded['bri']
+def putSat(light, sat):	clientsocket.close()
+	saturation = {}
+	saturation['sat'] = sat
+	saturation = json.dumps(saturation)
+	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", saturation)
+	response = conn.getresponse()
+	data = response.read()
+	if data[3:10] is "success":
+		return True
+	else:
+		return False
+#Hue의 밝기 변화 0~255
+def putBri(light, bri):
+	bright = {}
+	bright['bri'] = bri
+	bright = json.dumps(bright)
+	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", bright)
+	response = conn.getresponse()
+	data = response.read()
+	if data[3:10] is "success":
+		return True
+	else:
+		return False
+#Hue의 hue값 변화 0~65535
+def putHue(light, hue):
+	color = {}
+	color['hue'] = hue
+	color = json.dumps(color)
+	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", color)
+	response = conn.getresponse()
+	data = response.read()
+	if data[3:10] is "success":
+		return True
+	else:
+		return False

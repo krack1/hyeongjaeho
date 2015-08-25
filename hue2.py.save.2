@@ -72,7 +72,7 @@ def getState(light):
 	data = raw_data
 	ret =[]
 	ret.append(data['name'])
-	ret.append(data['state']['on'])
+	ret.append(data['1']['on'])
 	ret.append(data['state']['hue'])
 	ret.append(data['state']['sat'])
 	ret.append(data['state']['bri'])	
@@ -84,21 +84,6 @@ def getled():
 	raw_data = json.loads(response.read())
 	data = raw_data
 	ret = []
-	ret.append(data) 
+	ret.append(data['state']['name']) 
 
-	return data
-
-def putled(light, hue, sat, bri):
-	state = {}
-	state['hue']=hue
-	state['sat']=sat
-	state['bri']=bri
-	state = json.dumps(state)
-
-	print state
-
-	conn.request("PUT","/api/newdeveloper/lights/"+str(light)+"/state", state)
-
-
-on(4)
-putled(4, 30000, 254, 254)
+print getled()
